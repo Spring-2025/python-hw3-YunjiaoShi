@@ -14,31 +14,5 @@ from scipy.stats import norm
 def VaR(r, confidence, principal = 1):
     var_percentile = np.percentile(r, (1 - confidence) * 100)
     out = principal * abs(var_percentile)
-    plt.hist(r, bins=50, alpha=0.75, color='blue', edgecolor='black')
-    plt.axvline(var_percentile, color='red', linestyle='dashed', linewidth=2)
-    plt.title(f'Histogram of Returns with {confidence * 100}% VaR')
-    plt.xlabel('Returns')
-    plt.ylabel('Frequency')
-    plt.show()
 
     return out
-
-def percent_var(r, confidence):
-    plt.hist(r, bins=50, alpha=0.75)
-    plt.show()
-
-    out = np.percentile(r, (1 - confidence) * 100)
-    return abs(out)
-
-
-# Example tools: percentile
-returns = np.random.normal(0, 1, 10000)
-print(np.percentile(returns, 97.72))
-
-# Unit test
-r = np.random.normal(0.05, 0.03, 1000000)
-probability2SD = norm.cdf(2)
-
-my_confidence = probability2SD
-my_percent_var = percent_var(r, my_confidence )
-print(np.round(my_percent_var, 2) == 0.01)

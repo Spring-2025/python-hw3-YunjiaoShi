@@ -9,11 +9,10 @@ Original file is located at
 
 import numpy as np
 
-def ES(losses, confidence=None, VaR=None, use_PnL=False):
-    if VaR is None:
-        if confidence is None:
-            raise ValueError("Either confidence or VaR must be provided.")
-        VaR = np.percentile(losses, 100 * (1 - confidence))
+def ES(losses, alpha=None, VaR=None, use_PnL=False):
+    if VaR is None and alpha is None:
+        VaR = np.percentile(losses, 100 * alpha)
 
     es_value = np.mean(losses[losses < VaR])
+
     return abs(es_value)
